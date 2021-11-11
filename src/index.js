@@ -22,8 +22,10 @@ app.use(bodyParser.urlencoded({ extended: false }));
 
 const URI_BASE = 'http://challenge.dienekes.com.br/api/numbers?page=';
 
-app.get('/', async (req, res) => {
-    let data = await getAllNumbers(1, 100);
+app.get('/:start/:end', async (req, res) => {
+    let start = req.params.start;
+    let end = req.params.end;
+    let data = await getAllNumbers(start, end);
     res.status(200).json(data);
 })
 
