@@ -90,4 +90,4 @@ async function checkPageIfInvalid(pageSelected) {
     return json;
 }
 
-app.listen(3000);
+app.listen(process.env.PORT || 3000);
