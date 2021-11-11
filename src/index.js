@@ -23,15 +23,14 @@ app.use(bodyParser.urlencoded({ extended: false }));
 const URI_BASE = 'http://challenge.dienekes.com.br/api/numbers?page=';
 
 app.get('/', async (req, res) => {
-    //let data = await getAllNumbers();
-    //res.status(200).json(data);
-    res.send("eaeee")
+    let data = await getAllNumbers(1, 100);
+    res.status(200).json(data);
 })
 
-async function getAllNumbers() {
+async function getAllNumbers(init, end) {
     try {
 
-        let pageSelected = 1;
+        let pageSelected = init;
 
         let numbersPerPage = [];
 
@@ -40,6 +39,7 @@ async function getAllNumbers() {
         let hasPageValid = true;
 
         while(hasPageValid) {
+            if(pageSelected > end) break;
             let p = await checkPageIfInvalid(pageSelected);
             hasPageValid = (p.numbers != undefined || p.error);
             if(p.numbers != undefined){
